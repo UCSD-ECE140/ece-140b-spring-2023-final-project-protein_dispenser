@@ -25,7 +25,14 @@ conn = pymysql.connect(
 )
 cursor = conn.cursor()
 
+
 @app.get("/", response_class=HTMLResponse)
+def get_html() -> HTMLResponse:
+    with open("index.html") as html:
+        return HTMLResponse(content=html.read())
+
+
+@app.get("/home", response_class=HTMLResponse)
 def get_html() -> HTMLResponse:
     with open("home.html") as html:
         return HTMLResponse(content=html.read())
@@ -37,11 +44,11 @@ def get_html() -> HTMLResponse:
         return HTMLResponse(content=html.read())
 
 
-@app.get("/registration", response_class=HTMLResponse)
+@app.get("/signup", response_class=HTMLResponse)
 def get_html() -> HTMLResponse:
     with open("registration.html") as html:
         return HTMLResponse(content=html.read())
-    
+
 
 @app.get("/login.js", response_class=HTMLResponse)
 def get_js() -> HTMLResponse:
@@ -49,7 +56,19 @@ def get_js() -> HTMLResponse:
         return HTMLResponse(content=js.read(), media_type="application/javascript")
 
 
-@app.get("/registration.js", response_class=HTMLResponse)
+@app.get("/home.js", response_class=HTMLResponse)
+def get_js() -> HTMLResponse:
+    with open("./public/home.js") as js:
+        return HTMLResponse(content=js.read(), media_type="application/javascript")
+
+
+@app.get("/index.js", response_class=HTMLResponse)
+def get_js() -> HTMLResponse:
+    with open("./public/index.js") as js:
+        return HTMLResponse(content=js.read(), media_type="application/javascript")
+
+
+@app.get("/signup.js", response_class=HTMLResponse)
 def get_js() -> HTMLResponse:
     with open("./public/registration.js") as js:
         return HTMLResponse(content=js.read(), media_type="application/javascript")
@@ -61,7 +80,7 @@ def register(
     password: str = Form(...),
     info: str = Form(...)
 ):
-    
+
     user_id = randint(100000, 999999)
 
     cursor.execute(
@@ -75,7 +94,7 @@ def register(
         (user_id, password, info)
     )
     conn.commit()
-    
+
     return RedirectResponse(url="/login", status_code=302)
 
 
