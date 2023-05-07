@@ -32,7 +32,6 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS user_info (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
-  user_password VARCHAR(255) NOT NULL,
   info VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
