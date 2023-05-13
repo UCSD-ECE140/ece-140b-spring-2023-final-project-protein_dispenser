@@ -11,22 +11,22 @@ supplementButtons.forEach(button => {
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const selectedProteinAmount = document.querySelector('#protein-amount').value;
+    const selectedServingSize = document.querySelector('#serving').value;
 
     try {
-        const response = await fetch('/api/set-protein-amount', {
+        const response = await fetch('/api/set-serving', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ proteinAmount: selectedProteinAmount })
+            body: JSON.stringify({ ServingSize: selectedServingSize })
         });
 
         if (!response.ok) {
-            throw new Error('Failed to set protein amount');
+            throw new Error('Failed to set serving size');
         }
 
-        alert(`Protein amount set to ${selectedProteinAmount} g`);
+        alert(`Serving size set to ${selectedServingSize} g`);
     } catch (error) {
         alert(error.message);
     }

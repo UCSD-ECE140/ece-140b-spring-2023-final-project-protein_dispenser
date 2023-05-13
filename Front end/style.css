@@ -1,61 +1,149 @@
-/* Center the h1, h2 tag */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  /* background: linear-gradient(to bottom, #F3DFA2, #FFC43D); */
+  /* background: #202020; */
+  background: #D6D6D6;
+  font-family: 'Ropa Sans', sans-serif;
+}
+
 h1, h2 {
     text-align: center;
-  }
+    /* color: #FFD100; */
+    color: #202020;
+}
+
+p, a, h3 { 
+  color: #D6D6D6;
+  /* color: #202020; */
+}
+
+a:hover {
+  color: #d6d6d685;
+}
+
+dialog {
+  background-color: #202020;
+}
 
 #password_msg{
     text-align: center;
 }
+  
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #333533;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: auto;
+}
 
-a[href="forgot_password"] {
-    text-align: center;
+.login_ui { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
   
-/* Center the form */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* height: 100vh; */
-  }
+/* Style the form input fields */
+input[type=text],
+input[type=email],
+input[type=password] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
   
-  /* Style the form */
-  form {
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    margin: auto;
-  }
+/* Style the form submit button */
+button {
+  background-color: #FFEE32;
+  color: #000000;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
   
-  /* Style the form input fields */
-  input[type=text],
-  input[type=email],
-  input[type=password] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-  }
-  
-  /* Style the form submit button */
-  button {
-    background-color: #306ae7;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  /* Style the form submit button on hover */
-  button:hover {
-    background-color: #306ae7c0;
-  }
-  
+/* Style the form submit button on hover */
+button:hover {
+  background-color: #FFD100;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #202020;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.topnav_return {
+  background-color: #202020;
+  overflow: hidden;
+  display: flex;
+  justify-content:flex-start;
+}
+/* Style the links inside the navigation bar */
+.topnav_return a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 17px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 17px;
+}
+
+.profile_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.big_container { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ui_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px; /* Adjust the width to fit your desired container size */
+  height: 500px;
+}
+.supplement_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333533;
+  border-radius: 10px;
+  width: calc(50% - 10px); /* Adjust the width to add desired spacing between items */
+  height: calc(50% - 10px); /* Adjust the height to add desired spacing between items */
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
