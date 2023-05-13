@@ -69,7 +69,7 @@ input[type=password] {
   
 /* Style the form submit button */
 button {
-  background-color: #FFEE32;
+  background-color: #FFD100;
   color: #000000;
   padding: 10px;
   border: none;
@@ -80,7 +80,7 @@ button {
   
 /* Style the form submit button on hover */
 button:hover {
-  background-color: #FFD100;
+  background-color: #FFEE32;
 }
 
 /* Add a black background color to the top navigation */
