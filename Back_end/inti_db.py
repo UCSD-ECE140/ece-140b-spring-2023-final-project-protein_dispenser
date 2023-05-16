@@ -49,12 +49,11 @@ CREATE TABLE IF NOT EXISTS user_items (
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
 """)
-<<<<<<< Updated upstream
-=======
+
 
 cursor.execute("CREATE TABLE session (id INT)")
 
->>>>>>> Stashed changes
+
 cursor.close()
 
 
