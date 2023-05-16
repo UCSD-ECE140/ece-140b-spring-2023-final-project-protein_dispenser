@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Protein Dispenser Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    
+    <style>
+        .toggle-btn {
+            display: inline-block;
+            background-color: #ddd;
+            color: #888;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+
+        .toggle-btn.selected {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto my-10 p-4 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-4">Health Hive</h1>
+        <form>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="protein-amount">Seving Size (g):</label>
+                <select
+                    class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                    id="protein-amount" name="protein-amount">
+                    <option value="0">0 g</option>
+                    <option value="10">10 g</option>
+                    <option value="20">20 g</option>
+                    <option value="30">30 g</option>
+                    <option value="40">40 g</option>
+                    <option value="50">50 g</option>
+                    <option value="60">60 g</option>
+                    <option value="70">70 g</option>
+                    <option value="80">80 g</option>
+                    <option value="90">90 g</option>
+                    <option value="100">100 g</option>
+                </select>
+            </div>
+            <button id="supplement-1" class="toggle-btn">Protein Powder</button>
+            <button id="supplement-2" class="toggle-btn">Greens Powder</button>
+            <br> 
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">Dispense</button>
+        </form>
+    </div>
+</body>
+<script type="module" src="/Front end/public/home.js"></script>
+</html>
