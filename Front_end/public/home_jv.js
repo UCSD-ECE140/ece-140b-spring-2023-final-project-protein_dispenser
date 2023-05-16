@@ -15,10 +15,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
   saveButtons.forEach(button => {
     let supplementNumber = button.getAttribute('data-supplement');
     let dialog = document.querySelector(`#edit_dialog_${supplementNumber}`);
+    let nameInput = document.querySelector(`#sup_name_${supplementNumber}`);
+    let supplementName = document.querySelector(`.supplement_container:nth-child(${supplementNumber}) h3`);
 
     button.addEventListener('click', (event) => {
       event.preventDefault();
-      // Do save logic here
+      // Update the supplement name
+      supplementName.textContent = nameInput.value;
       dialog.close();
     });
   });

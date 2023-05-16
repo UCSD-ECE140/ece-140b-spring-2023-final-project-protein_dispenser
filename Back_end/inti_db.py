@@ -1,10 +1,10 @@
-import mysql.connector
+import pymysql
 
 # Connect to MySQL server
-cnx = mysql.connector.connect(
+cnx = pymysql.connect(
     host="localhost",
-    user="yourusername",
-    password="yourpassword"
+    user="root",
+    password="password"
 )
 
 # Create database
@@ -13,7 +13,7 @@ cursor.execute("CREATE DATABASE IF NOT EXISTS HealthHive")
 cursor.close()
 
 # Connect to HealthHive database
-cnx.database = "HealthHive"
+cursor.execute("USE HealthHive")
 
 # Create users table
 cursor = cnx.cursor()
@@ -32,7 +32,6 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS user_info (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
-  user_password VARCHAR(255) NOT NULL,
   info VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
@@ -45,13 +44,14 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS user_items (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
-  string VARCHAR(255) NOT NULL,
+  string VARCHAR(255),
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
 """)
 
 
-cursor.execute("CREATE TABLE session (id INT)")
+cursor.execute(
+    "CREATE TABLE IF NOT EXISTS session (id INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
 
 
 cursor.close()

@@ -2,7 +2,7 @@ function checkUserExists() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    fetch('/login_check', {
+    fetch('/login_user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -14,10 +14,10 @@ function checkUserExists() {
     })
         .then(response => {
             if (response.ok) {
-                // User exists, redirect to the desired page
-                window.location.href = '/home_jv.html';
+                // User exists
+                window.location.href = '/home_jv';
             } else {
-                // User does not exist or invalid credentials
+                // User does not exist
                 alert('Invalid credentials');
             }
         })

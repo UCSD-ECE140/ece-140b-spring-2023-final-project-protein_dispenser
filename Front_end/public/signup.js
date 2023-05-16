@@ -10,17 +10,14 @@ function submitForm() {
         return;
     }
 
+    const formData = new FormData();
+    formData.append('username', email);
+    formData.append('password', password);
+    formData.append('info', firstname + " " + lastname);
 
     fetch('/register', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: email,
-            password: password,
-            info: firstname + lastname
-        })
+        body: formData
     }).then(response => {
         if (response.ok) {
             window.location.href = '/login';

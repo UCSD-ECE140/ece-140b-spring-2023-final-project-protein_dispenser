@@ -13,6 +13,7 @@ from fastapi.responses import FileResponse
 from fastapi import FastAPI, Form, Body, Request, Query
 from fastapi.templating import Jinja2Templates
 from datetime import datetime
+import random
 import json
 import pymysql
 app = FastAPI()
@@ -21,7 +22,7 @@ conn = pymysql.connect(
     host='localhost',
     user='root',
     password='password',
-    database='users'
+    database='HealthHive'
 )
 cursor = conn.cursor()
 
@@ -32,9 +33,9 @@ def get_html() -> HTMLResponse:
         return HTMLResponse(content=html.read())
 
 
-@app.get("/home", response_class=HTMLResponse)
+@app.get("/home_jv", response_class=HTMLResponse)
 def get_html() -> HTMLResponse:
-    with open("home.html") as html:
+    with open("home_jv.html") as html:
         return HTMLResponse(content=html.read())
 
 
@@ -46,8 +47,25 @@ def get_html() -> HTMLResponse:
 
 @app.get("/signup", response_class=HTMLResponse)
 def get_html() -> HTMLResponse:
-    with open("registration.html") as html:
+    with open("signup.html") as html:
         return HTMLResponse(content=html.read())
+    
+
+@app.get("/style.css")
+def get_css() -> FileResponse:
+    return FileResponse("style.css", media_type="text/css")
+    
+
+@app.get("/index.js", response_class=HTMLResponse)
+def get_js() -> HTMLResponse:
+    with open("./public/index.js") as js:
+        return HTMLResponse(content=js.read(), media_type="application/javascript")
+    
+
+@app.get("/home_jv.js", response_class=HTMLResponse)
+def get_js() -> HTMLResponse:
+    with open("./public/home_jv.js") as js:
+        return HTMLResponse(content=js.read(), media_type="application/javascript")
 
 
 @app.get("/login.js", response_class=HTMLResponse)
@@ -70,7 +88,7 @@ def get_js() -> HTMLResponse:
 
 @app.get("/signup.js", response_class=HTMLResponse)
 def get_js() -> HTMLResponse:
-    with open("./public/registration.js") as js:
+    with open("./public/signup.js") as js:
         return HTMLResponse(content=js.read(), media_type="application/javascript")
 
 
@@ -81,18 +99,24 @@ def register(
     info: str = Form(...)
 ):
 
-    user_id = randint(100000, 999999)
+    user_id = random.randint(100000, 999999)
 
     cursor.execute(
-        "INSERT INTO users (id, username) VALUES (%s, %s, %s)",
-        (user_id, username)
+        "INSERT INTO users (id, username, password) VALUES (%s, %s, %s)",
+        (user_id, username, password)
     )
     conn.commit()
 
     cursor.execute(
-        "INSERT INTO user_info (user_id, user_password, info) VALUES (%s, %s, %s)",
-        (user_id, password, info)
+        "INSERT INTO user_info (user_id, info) VALUES (%s, %s)",
+        (user_id, info)
     )
+    conn.commit()
+    
+    # cursor.execute(
+    #     "INSERT INTO user_items (user_id) VALUES (%s)",
+    #     (user_id)
+    # )
     conn.commit()
 
     return RedirectResponse(url="/login", status_code=302)
@@ -118,3 +142,7 @@ def login_user(username: str = Body(...), password: str = Body(...)):
         conn.commit()
         print(result[0], login_time)
         return result
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=6789)

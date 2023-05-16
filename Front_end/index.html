@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Health Hive Login</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Health Hive</h1>
+        <body class="login">
+            <form>
+                <input type="email" id="email" name="email" maxlength="100" placeholder="Email Address" required><br>
+                <input type="password" id="password" name="password" maxlength="100" placeholder="Password" required><br>
+                <button type="button" onclick="checkUserExists()">Login</button><br>
+                <button type="button" onclick="window.location.href = '/signup';">Sign up</button><br>
+            </form>
+        
+            <script src="/login.js"></script>
+        </body>
+        
+        
+        
+
+        <script type="module" src="/index.js"></script>
+    </body>
+</html>
