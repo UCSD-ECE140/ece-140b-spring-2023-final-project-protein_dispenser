@@ -1,3 +1,4 @@
+import paramiko
 import requests
 from fastapi import Request
 from fastapi.responses import JSONResponse
@@ -142,6 +143,16 @@ def login_user(username: str = Body(...), password: str = Body(...)):
         conn.commit()
         print(result[0], login_time)
         return result
+
+
+@app.post("/ssh_open")
+async def ssh_open(password: str = Body(...)):
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect("raspberrypi.local", username="pi", password=password)
+    ssh.close()
+    return {"success": True}
+
 
 
 if __name__ == "__main__":

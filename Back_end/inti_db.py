@@ -56,6 +56,23 @@ cursor.execute(
 
 cursor.close()
 
+cursor = cnx.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS device_data (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  device_id VARCHAR(255) NOT NULL,
+  string1 VARCHAR(255),
+  value1 INT,
+  string2 VARCHAR(255),
+  value2 INT,
+  string3 VARCHAR(255),
+  value3 INT,
+  string4 VARCHAR(255),
+  value4 INT
+)
+""")
+cursor.close()
+
 
 # cursor = cnx.cursor()
 # cursor.execute("""
