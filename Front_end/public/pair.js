@@ -3,18 +3,17 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();  // prevent form from submitting normally
 
         var password = document.getElementById('password').value;
-
+        
         fetch('/ssh_open', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ password: password }),
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '/placeholder';  // redirect to placeholder page
+                    window.location.href = '/home_jv';  // redirect to placeholder page
                 } else {
                     alert('SSH connection failed.');
                 }

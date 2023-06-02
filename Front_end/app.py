@@ -18,6 +18,7 @@ import random
 import json
 import pymysql
 app = FastAPI()
+ssh = paramiko.SSHClient()
 
 conn = pymysql.connect(
     host='localhost',
@@ -38,6 +39,13 @@ def get_html() -> HTMLResponse:
 def get_html() -> HTMLResponse:
     with open("home_jv.html") as html:
         return HTMLResponse(content=html.read())
+    
+
+@app.get("/pair", response_class=HTMLResponse)
+def get_html() -> HTMLResponse:
+    with open("pair.html") as html:
+        return HTMLResponse(content=html.read())
+
 
 
 @app.get("/login", response_class=HTMLResponse)
@@ -62,6 +70,11 @@ def get_js() -> HTMLResponse:
     with open("./public/index.js") as js:
         return HTMLResponse(content=js.read(), media_type="application/javascript")
     
+
+@app.get("/pair.js", response_class=HTMLResponse)
+def get_js() -> HTMLResponse:
+    with open("./public/pair.js") as js:
+        return HTMLResponse(content=js.read(), media_type="application/javascript")
 
 @app.get("/home_jv.js", response_class=HTMLResponse)
 def get_js() -> HTMLResponse:
@@ -146,11 +159,18 @@ def login_user(username: str = Body(...), password: str = Body(...)):
 
 
 @app.post("/ssh_open")
-async def ssh_open(password: str = Body(...)):
-    ssh = paramiko.SSHClient()
+async def ssh_open():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect("raspberrypi.local", username="pi", password=password)
-    ssh.close()
+    ssh.connect("raspberrypi.local", username="ece140-12", password="ece140-12")
+    stdin, stdout, stderr = ssh.exec_command('cd /home/ece140-12/ece-140b-spring-2023-final-project-protein_dispenser/hx711py')
+    errors = stderr.read()
+    # If there is an error print it
+    if errors:
+        print(errors)
+
+    # Now, you can execute commands within that directory
+    stdin, stdout, stderr = ssh.exec_command('pwd')
+    print(stdout.read())
     return {"success": True}
 
 
