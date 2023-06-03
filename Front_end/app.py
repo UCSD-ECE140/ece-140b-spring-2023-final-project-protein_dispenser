@@ -162,15 +162,25 @@ def login_user(username: str = Body(...), password: str = Body(...)):
 async def ssh_open():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect("raspberrypi.local", username="ece140-12", password="ece140-12")
-    stdin, stdout, stderr = ssh.exec_command('cd /home/ece140-12/ece-140b-spring-2023-final-project-protein_dispenser/hx711py && python test_servo_weight.py')
+    command = f'ls'
+    stdin, stdout, stderr = ssh.exec_command(command)
     errors = stderr.read()
     if errors:
         print(errors)
-
-    print(stdout.read())
     return {"success": True}
 
 
+@app.post("/dispense")
+async def dispense(sup_serve: str = Body(...)):
+    command = f'cd /home/ece140-12/ece-140b-spring-2023-final-project-protein_dispenser/hx711py && python test_servo_weight.py {sup_serve}'
+    stdin, stdout, stderr = ssh.exec_command(command)
+    errors = stderr.read()
+    if errors:
+        print(errors)
+    else:
+        print(stdout.read())
+
+    return {"success": not bool(errors)}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=6789)
