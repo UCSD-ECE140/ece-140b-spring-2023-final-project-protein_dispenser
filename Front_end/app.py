@@ -1,3 +1,4 @@
+from typing import Dict
 import paramiko
 import requests
 from fastapi import Request
@@ -162,6 +163,8 @@ def login_user(username: str = Body(...), password: str = Body(...)):
 async def ssh_open():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect("raspberrypi.local", username="ece140-12", password="ece140-12")
+    command = f'sudo pigpiod'
+    stdin, stdout, stderr = ssh.exec_command(command)
     command = f'ls'
     stdin, stdout, stderr = ssh.exec_command(command)
     errors = stderr.read()
@@ -171,8 +174,9 @@ async def ssh_open():
 
 
 @app.post("/dispense")
-async def dispense(sup_serve: str = Body(...)):
-    command = f'cd /home/ece140-12/ece-140b-spring-2023-final-project-protein_dispenser/hx711py && python test_servo_weight.py {sup_serve}'
+async def dispense(servingSize: Dict = Body(...)):
+    # assuming servingSize is a dictionary with a 'servingSize' key
+    command = f'cd /home/ece140-12/ece-140b-spring-2023-final-project-protein_dispenser/hx711py && python test_servo_weight.py {servingSize["servingSize"]}'
     stdin, stdout, stderr = ssh.exec_command(command)
     errors = stderr.read()
     if errors:

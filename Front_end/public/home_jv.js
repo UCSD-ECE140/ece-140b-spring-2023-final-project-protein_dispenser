@@ -11,8 +11,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     button.addEventListener('click', () => {
       // Grab the current serving size
-      let servingSize = servingInput.value;
-
+      var servingSize = servingInput.value;
+      var servingSize = parseInt(servingInput.value, 10);
+      console.log(typeof(servingSize))
+      console.log(servingSize)
       // Send a POST request to the /dispense route
       fetch('/dispense', {
         method: 'POST',
@@ -20,7 +22,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          supplementNumber: supplementNumber,
           servingSize: servingSize
         })
       })

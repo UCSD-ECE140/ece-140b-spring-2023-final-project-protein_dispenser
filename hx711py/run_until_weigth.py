@@ -26,8 +26,8 @@ def cleanAndExit():
     sys.exit()
 
 
-# Add argparse for command line arguments
-parser = argparse.ArgumentParser(description='Weight measurement script.')
+
+parser = argparse.ArgumentParser(description='Weight measurement.')
 parser.add_argument('target_weight', metavar='N',
                     type=int, help='The target weight')
 args = parser.parse_args()
