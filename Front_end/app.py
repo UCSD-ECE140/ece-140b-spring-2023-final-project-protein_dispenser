@@ -20,13 +20,13 @@ import pymysql
 app = FastAPI()
 ssh = paramiko.SSHClient()
 
-conn = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='password',
-    database='HealthHive'
-)
-cursor = conn.cursor()
+# conn = pymysql.connect(
+#     host='localhost',
+#     user='root',
+#     password='password',
+#     database='HealthHive'
+# )
+# cursor = conn.cursor()
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -115,23 +115,23 @@ def register(
 
     user_id = random.randint(100000, 999999)
 
-    cursor.execute(
-        "INSERT INTO users (id, username, password) VALUES (%s, %s, %s)",
-        (user_id, username, password)
-    )
-    conn.commit()
+    # cursor.execute(
+    #     "INSERT INTO users (id, username, password) VALUES (%s, %s, %s)",
+    #     (user_id, username, password)
+    # )
+    # conn.commit()
 
-    cursor.execute(
-        "INSERT INTO user_info (user_id, info) VALUES (%s, %s)",
-        (user_id, info)
-    )
-    conn.commit()
+    # cursor.execute(
+    #     "INSERT INTO user_info (user_id, info) VALUES (%s, %s)",
+    #     (user_id, info)
+    # )
+    # conn.commit()
     
     # cursor.execute(
     #     "INSERT INTO user_items (user_id) VALUES (%s)",
     #     (user_id)
     # )
-    conn.commit()
+    # conn.commit()
 
     return RedirectResponse(url="/login", status_code=302)
 
@@ -139,20 +139,20 @@ def register(
 @app.post("/login_user")
 def login_user(username: str = Body(...), password: str = Body(...)):
     # Check if the username or email and password are correct
-    cursor.execute(
-        "SELECT * FROM users WHERE (username=%s) AND password=%s",
-        (username, password)
-    )
-    result = cursor.fetchone()
+    # cursor.execute(
+    #     "SELECT * FROM users WHERE (username=%s) AND password=%s",
+    #     (username, password)
+    # )
+    # result = cursor.fetchone()
 
     if result is None:
         return "Incorrect username or password"
     else:
         login_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        cursor.execute(
-            "INSERT INTO session (id, created_at) VALUES (%s, %s)",
-            (result[0], login_time)
-        )
+        # cursor.execute(
+        #     "INSERT INTO session (id, created_at) VALUES (%s, %s)",
+        #     (result[0], login_time)
+        # )
         conn.commit()
         print(result[0], login_time)
         return result
@@ -162,14 +162,14 @@ def login_user(username: str = Body(...), password: str = Body(...)):
 async def ssh_open():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect("raspberrypi.local", username="ece140-12", password="ece140-12")
-    stdin, stdout, stderr = ssh.exec_command('cd /home/ece140-12/ece-140b-spring-2023-final-project-protein_dispenser/hx711py')
+    stdin, stdout, stderr = ssh.exec_command('cd ece-140b-spring-2023-final-project-protein_dispenser/hx711py && pwd && python test_servo_weight.py')
     errors = stderr.read()
     # If there is an error print it
     if errors:
         print(errors)
 
     # Now, you can execute commands within that directory
-    stdin, stdout, stderr = ssh.exec_command('pwd')
+    # stdin, stdout, stderr = ssh.exec_command('pwd')
     print(stdout.read())
     return {"success": True}
 

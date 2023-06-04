@@ -13,7 +13,9 @@ cursor.execute("CREATE DATABASE IF NOT EXISTS HealthHive")
 cursor.close()
 
 # Connect to HealthHive database
+cursor = cnx.cursor()
 cursor.execute("USE HealthHive")
+cursor.close()
 
 # Create users table
 cursor = cnx.cursor()
