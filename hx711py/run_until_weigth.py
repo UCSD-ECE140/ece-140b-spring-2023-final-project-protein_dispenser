@@ -59,10 +59,10 @@ while True:
         print("setting to: ", pi.set_servo_pulsewidth(25, 1000))
         print("set to: ", pi.get_servo_pulsewidth(25))
 
-        time.sleep(1)
+        # time.sleep(1)
 
-        print("setting to: ", pi.set_servo_pulsewidth(25, 2000))
-        print("set to: ", pi.get_servo_pulsewidth(25))
+        # print("setting to: ", pi.set_servo_pulsewidth(25, 2000))
+        # print("set to: ", pi.get_servo_pulsewidth(25))
 
         time.sleep(1)
 
